@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}To do app{% endblock %}
+
+{% block content %}
+<h1>To do List</h1>
+
+<form action="/addTodoItem/" method = "post">
+    {% csrf_token %}
+    <input type="text" name="content">
+    <input type="submit" value="Add Todo Item">
+</form> 
+
+<ul>
+    {% for i in  all_items %}
+        <li>
+            {{i.content}}
+            <form method = "post">
+                {% csrf_token %}
+                <input type="checkbox" name="delete" onclick="location.href='/deleteTodoItem/{{i.id}}/'">
+            </form>  
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
